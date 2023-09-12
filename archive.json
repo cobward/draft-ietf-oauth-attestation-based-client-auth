@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-09-10T00:45:01.078242+00:00",
+  "timestamp": "2023-09-12T00:40:58.615471+00:00",
   "repo": "vcstuff/draft-ietf-oauth-attestation-based-client-auth",
   "labels": [
     {
@@ -2943,7 +2943,7 @@
       "labels": [],
       "body": "Addresses issues with language about the jti claim in the client attestation and pop jwt.\r\n\r\nCloses #34 \r\nCloses #33 \r\nCloses #37 ",
       "createdAt": "2023-09-07T00:55:00Z",
-      "updatedAt": "2023-09-07T21:03:30Z",
+      "updatedAt": "2023-09-10T20:21:07Z",
       "baseRepository": "vcstuff/draft-ietf-oauth-attestation-based-client-auth",
       "baseRefName": "main",
       "baseRefOid": "cb0ef588b56e55d29485b7e7a5e3982f5cd21197",
@@ -2998,7 +2998,7 @@
       "labels": [],
       "body": "Clarifies the purpose of the cnf claim in the client attestation.\r\n\r\nPartially addresses #36",
       "createdAt": "2023-09-07T01:16:34Z",
-      "updatedAt": "2023-09-08T21:44:03Z",
+      "updatedAt": "2023-09-10T20:21:06Z",
       "baseRepository": "vcstuff/draft-ietf-oauth-attestation-based-client-auth",
       "baseRefName": "main",
       "baseRefOid": "cb0ef588b56e55d29485b7e7a5e3982f5cd21197",
@@ -3053,7 +3053,7 @@
       "labels": [],
       "body": "Closes #31 \r\nCloses #12 ",
       "createdAt": "2023-09-07T01:21:27Z",
-      "updatedAt": "2023-09-08T21:43:05Z",
+      "updatedAt": "2023-09-10T20:21:05Z",
       "baseRepository": "vcstuff/draft-ietf-oauth-attestation-based-client-auth",
       "baseRefName": "main",
       "baseRefOid": "cb0ef588b56e55d29485b7e7a5e3982f5cd21197",
@@ -3108,7 +3108,7 @@
       "labels": [],
       "body": "Minor language tweaks aligning more to RFC 7521 in how the client authentication mechanism is defined as to not limit its application to only being used at the token endpoint.\r\n\r\nCloses #27",
       "createdAt": "2023-09-07T01:36:28Z",
-      "updatedAt": "2023-09-08T21:45:59Z",
+      "updatedAt": "2023-09-10T20:21:04Z",
       "baseRepository": "vcstuff/draft-ietf-oauth-attestation-based-client-auth",
       "baseRefName": "main",
       "baseRefOid": "cb0ef588b56e55d29485b7e7a5e3982f5cd21197",
