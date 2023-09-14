@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-09-12T00:40:58.615471+00:00",
+  "timestamp": "2023-09-14T00:42:07.793308+00:00",
   "repo": "vcstuff/draft-ietf-oauth-attestation-based-client-auth",
   "labels": [
     {
@@ -1195,7 +1195,7 @@
       "labels": [],
       "body": "Should the actual URL the client attestation pop JWT shall be sent to be included in the pop JWT?\r\n\r\nDPoP has it but I assume the nonce is powerful enough to protect against replay but want to make sure we have thought about it.",
       "createdAt": "2023-07-30T15:48:54Z",
-      "updatedAt": "2023-09-06T06:17:10Z",
+      "updatedAt": "2023-09-13T22:22:06Z",
       "closedAt": null,
       "comments": [
         {
@@ -1211,6 +1211,20 @@
           "body": "@tlodderstedt can you confirm what you mean, I read your issue as meaning we should be including the endpoint that the PoP is going to be presented at (e.g the token endpoint)?",
           "createdAt": "2023-09-06T06:17:02Z",
           "updatedAt": "2023-09-06T06:17:02Z"
+        },
+        {
+          "author": "tlodderstedt",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "yes, that's what I mean. The PoP should be restricted to the endpoint URL it is sent to. ",
+          "createdAt": "2023-09-12T19:22:51Z",
+          "updatedAt": "2023-09-12T19:22:51Z"
+        },
+        {
+          "author": "tplooker",
+          "authorAssociation": "COLLABORATOR",
+          "body": "The HTU claim in DPoP serves a couple of purposes which are freshness and audience constraint. With this draft the client attestation PoP already has normative text around populating the aud value for audience constraint and a mechanism around jti for a limited solution to detecting freshness (replay attacks). We also have #39 discussing a solution to a server generated nonce which will improve the freshness (replay attacks). With those mechanisms in place I dont believe we also need an HTU style claim.",
+          "createdAt": "2023-09-13T22:22:06Z",
+          "updatedAt": "2023-09-13T22:22:06Z"
         }
       ]
     },
