@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-09-14T00:42:07.793308+00:00",
+  "timestamp": "2023-09-21T00:42:20.771568+00:00",
   "repo": "vcstuff/draft-ietf-oauth-attestation-based-client-auth",
   "labels": [
     {
@@ -47,6 +47,11 @@
       "name": "wontfix",
       "description": "This will not be worked on",
       "color": "ffffff"
+    },
+    {
+      "name": "pending-close",
+      "description": "",
+      "color": "D76CC5"
     }
   ],
   "issues": [
@@ -1192,10 +1197,12 @@
       "assignees": [
         "tplooker"
       ],
-      "labels": [],
+      "labels": [
+        "pending-close"
+      ],
       "body": "Should the actual URL the client attestation pop JWT shall be sent to be included in the pop JWT?\r\n\r\nDPoP has it but I assume the nonce is powerful enough to protect against replay but want to make sure we have thought about it.",
       "createdAt": "2023-07-30T15:48:54Z",
-      "updatedAt": "2023-09-13T22:22:06Z",
+      "updatedAt": "2023-09-20T20:09:49Z",
       "closedAt": null,
       "comments": [
         {
