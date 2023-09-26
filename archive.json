@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-09-21T00:42:20.771568+00:00",
+  "timestamp": "2023-09-26T00:43:24.975002+00:00",
   "repo": "vcstuff/draft-ietf-oauth-attestation-based-client-auth",
   "labels": [
     {
@@ -744,7 +744,7 @@
       "labels": [],
       "body": "Issue raised by Kristina:\r\nI also perceive this draft as a PoP version of urn:ietf:params:oauth:grant-type:jwt-bearer, would it make sense to make that more intuitive and explicit - like urn:ietf:params:oauth:grant-type:jwt-pop? - this can be another issue\r\n\r\n_Originally posted by @Sakurann in https://github.com/vcstuff/draft-looker-oauth-attested-key-based-client-authentication/pull/11#pullrequestreview-1451679914_\r\n            ",
       "createdAt": "2023-06-05T08:59:41Z",
-      "updatedAt": "2023-09-06T06:47:02Z",
+      "updatedAt": "2023-09-25T18:40:05Z",
       "closedAt": null,
       "comments": [
         {
@@ -753,6 +753,13 @@
           "body": "@Sakurann can you please review the latest terminology in the draft and let us know if you have any issue with it?",
           "createdAt": "2023-09-06T06:46:52Z",
           "updatedAt": "2023-09-06T06:46:52Z"
+        },
+        {
+          "author": "bc-pi",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Note that this draft is defining an OAuth client authentication method and *not* a grant type (yes RFC7521 has both but this draft only deals with client auth). So there may well be room for improvement in terminology but it shouldn't be about grant type.",
+          "createdAt": "2023-09-25T18:40:04Z",
+          "updatedAt": "2023-09-25T18:40:04Z"
         }
       ]
     },
@@ -1263,6 +1270,148 @@
           "body": "Support for a server generated nonce over which the attestation can be generated is something that is highly desirable to protect against pre-computation attacks. We have seen attacks where attackers deploy malware an pre-compute signatures (including manipulation of the system clock) and then exfiltrating these signatures for future use. This was one of the reasons why we strongly advocated for the inclusion of server supplied nonces in the DPoP standard. \r\n \r\nPerhaps we can use a similar mechanism as in DPoP to include an optional server supplied nonce when generating the attestation (see Section 8 and 9 in DPoP for inspiration on supplying nonces as part of the interaction with the authorization and resource servers). The inclusion of  the nonce as part of a 200 response helps save on roundtrips (bar the first need for a nonce).\r\n",
           "createdAt": "2023-09-07T10:42:47Z",
           "updatedAt": "2023-09-07T10:42:47Z"
+        }
+      ]
+    },
+    {
+      "number": 45,
+      "id": "I_kwDOJaEkaM5x3qkF",
+      "title": "[client_assertion_pop] JWTs concatenated and separated by ~ vs self-explanatory parameter names",
+      "url": "https://github.com/vcstuff/draft-ietf-oauth-attestation-based-client-auth/issues/45",
+      "state": "OPEN",
+      "author": "peppelinux",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "In the current solution under development in Italy, the debate on the use of this wonderful draft has been alive for months.\r\n\r\nFrom the experiences and positions collected there seems to be a general refusal to recognize as \"beautiful\" the concatenation of JWTs divided by the ~ character within the `client_assertion` parameter.\r\n\r\nFor those who don't know, the crime of ugliness does not yet exist in Italy but there is great sensitivity in the search for beauty even in implementations.\r\n\r\nThere are alternative ways to proof the PoP, like DPoP. Unfortunately convey large JWT in a HTTP header like DPoP may have impacts on the tuning of the httpd services that would require a specialized configuration to allow http headers larger than 4KB. This has relevant impacts in the cases where a JWT carries x5c or Federation trust chains within its headers, where a JWT could be more than 4KB.\r\n\r\nEven if there are other specs that uses concatenation of JWTs using `~` as separator char, like SD-JWT. However SD-JWT tends to be self-contained artifact, general purpose and agnostic from the way it is transported. Then I'd tend to leave out SD-JWT from this thread.\r\n\r\nConsidering that this draft aims to extend RFC7521, I'd suggest to not use the concatenation two JWTs using `~` but the definition of a new parameter, that we may call `client_assertion_pop` to convey the client attestation PoP. This proposal suggests a good semantic with self-explanatory parameter names, in a modular way that aims to extend RFC7521 with explicit parameters as additional modules, that may be used where PoP is required.\r\n\r\n",
+      "createdAt": "2023-09-24T23:25:42Z",
+      "updatedAt": "2023-09-25T18:28:32Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "bc-pi",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "[Giuseppe asked for my thoughts]  \r\nRFC7521 largely only envisioned a single assertion so building on it for the intended functionality of this draft isn't a perfect fit. The current approach of the `client_assertion` parameter value having the two tilde separated JWTs is fine, though, in my opinion. And I don't believe that defining  new parameter for the Client Attestation PoP JWT would be a material improvement.    \r\n\r\n",
+          "createdAt": "2023-09-25T15:10:41Z",
+          "updatedAt": "2023-09-25T18:28:32Z"
+        },
+        {
+          "author": "peppelinux",
+          "authorAssociation": "MEMBER",
+          "body": "typo `client_attestation` -> `client_assertion`, fixed in the issue description \r\n\r\n",
+          "createdAt": "2023-09-25T17:08:13Z",
+          "updatedAt": "2023-09-25T17:08:27Z"
+        },
+        {
+          "author": "peppelinux",
+          "authorAssociation": "MEMBER",
+          "body": "Then you definitively suggest to detect the `client_assertion` value format by filter with the `client_assertion_type`",
+          "createdAt": "2023-09-25T17:09:30Z",
+          "updatedAt": "2023-09-25T17:09:30Z"
+        },
+        {
+          "author": "bc-pi",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Yeah, the value of the `client_assertion_type` is intended to indicate the format (and other aspects) of the `client_assertion` value.",
+          "createdAt": "2023-09-25T17:39:32Z",
+          "updatedAt": "2023-09-25T17:39:32Z"
+        }
+      ]
+    },
+    {
+      "number": 46,
+      "id": "I_kwDOJaEkaM5x3sO_",
+      "title": "extend use beyond authorization servers",
+      "url": "https://github.com/vcstuff/draft-ietf-oauth-attestation-based-client-auth/issues/46",
+      "state": "OPEN",
+      "author": "peppelinux",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "According to RFC7521 this draft aims to give specification about how to get authenticated with an AS, as we read in the introductory text\r\n\r\n> [[RFC7521](https://vcstuff.github.io/draft-ietf-oauth-attestation-based-client-auth/draft-ietf-oauth-attestation-based-client-auth.html#RFC7521)] defines a way for a client to include an assertion in a token request to an authorization server for the purposes of client authentication. This specification uses this framework to define a new assertion type that provides a way for a client instance to authenticate itself with the authorization server through an assertion that is bound to a public key (for proof of possession).\r\n\r\nIf the usefulness and purpose of this draft is clear, at the same time we perceive a great potential that could also be useful in other contexts.\r\n\r\nLately there has been a lot of talk about the use of the nonce as a definitive prevention against replay attacks, and the importance of the nonce endpoint for issuing these is often discussed.\r\n\r\nIn the background we have the emerging wallet ecosystem which proposes reversed roles at different times, where the wallet is a client in the issuance phase towards a credential issuer which is an AS, while it is a sort of AS in the presentation phase towards the Relying Party.\r\n\r\nThis draft could enable the authentication of a client (wallet) to a third party (either this AS or RP) before obtaining the nonce.\r\n\r\nthe possible nonce endpoint could present itself as a protected endpoint, the nonce should only be issued to authenticated parties.\r\n\r\nThis generalization would require greater flexibility compared to the current purposes of the draft, which envisages its use only when the audience is an AS, while it could also be an RP, where the wallet instance attestation with PoP can be provided before any kind of transaction takes place (allowing the RP to discover the wallet capabilities before issuing the signed request object).",
+      "createdAt": "2023-09-24T23:50:46Z",
+      "updatedAt": "2023-09-25T21:13:26Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "David-Chadwick",
+          "authorAssociation": "NONE",
+          "body": "From a trust perspective I think that issuing and presentation of credentials are different. The user/wallet typically trusts the issuer, otherwise why would it ask for a credential from it? OTOH, the user/wallet cannot trust any random RP that it connects to. Therefore the user/wallet should expect the issuer to authenticate itself first to the user/wallet, before authenticating itself to the issuer. OTOH the user should expect the verifier to identify itself first, so that it can determine if this verifier is trustworthy, before progressing any further with authentication or capability determination.",
+          "createdAt": "2023-09-25T09:50:31Z",
+          "updatedAt": "2023-09-25T09:50:31Z"
+        },
+        {
+          "author": "peppelinux",
+          "authorAssociation": "MEMBER",
+          "body": "I fully agree with you @David-Chadwick, in any cases the parties must establish trust before any protocol specific flow (issuance or presentation) may happen.\r\n\r\nthis issue aims to use an verifiable attestation based approach not just for client-AS (issuance) but also from AS-client (presentation), where the flow is conditioned by which entity has availability of endpoints (CI, RP) and which one not (wallet instances)",
+          "createdAt": "2023-09-25T11:16:25Z",
+          "updatedAt": "2023-09-25T11:16:25Z"
+        },
+        {
+          "author": "fbaud",
+          "authorAssociation": "NONE",
+          "body": "@David-Chadwick @peppelinux, I agree that issuing and verifiying are entirely different from a trust perspective. But my angle would be to emphasize this from the issuer/verifier perspective:\r\n\r\n- as an issuer, I want to trust the wallet I'm issuing a credential to. At the minimum, I want to check that the wallet has received some form of authorization to receive a credential that was defined by a user agent (a widget in our case at Primus Money)\r\n- as a verifier, I may just want to identify who is presenting a credential so that I can reconcile it with my backend data server. Most of the time, identification could be self-contained within the presentation itself. The more empediment (excessive authentication requirement) for the wallet to provide a credential, the less useful it is for the verifier.\r\n\r\nI agree that from the wallet perspective, the angle is the symetric: more requirements on the verifier to identify itself, no excessive requirement on the issuer for most of the types of credentials.\r\n\r\nI must stress that in our architecture, we have the additional element that is the widget which is the first interface between the user and the issuer/verifier. We are in a context where the widget connects to a SaaS infrastructure and we have again different trust requirements between issuing and verifying:\r\n\r\n- for issuing, the widget needs to authentify to specify the type of credentials it authorizes the SaaS server to issue\r\n-  for verification, except the concerns about Denial Of Service, the requirement to authentify are much less stringent and we can imagine workflows where we let anyone who wants to submit a presentation to let them do that. ",
+          "createdAt": "2023-09-25T11:52:05Z",
+          "updatedAt": "2023-09-25T11:52:05Z"
+        },
+        {
+          "author": "peppelinux",
+          "authorAssociation": "MEMBER",
+          "body": "@fbaud I agree with you and I'd buy also this \r\n\r\n> Most of the time, identification could be self-contained within the presentation itself. The more empediment (excessive authentication requirement) for the wallet to provide a credential, the less useful it is for the verifier.\r\n\r\nAt the same time the RP should know the wallet capabilities to know which are the supported sign and enc alg (and enc), if the wallet solution supports the presentation_definition_uri and so on.\r\n\r\nIn italy we use the wallet instance also to carry these capabilities, [here an example](https://italia.github.io/eudi-wallet-it-docs/versione-corrente/en/wallet-instance-attestation.html#format-of-the-wallet-instance-attestation)\r\n\r\nthis feature consolidates how a wallet capabilities discovery is required for a good interoperability, let's consider that a signature alg may be discovered vulnerable or the continuous technology advancement and innovation that will introduce periodically new features and algs.\r\n\r\nI believe that having a wallet capabilities discovery process, seamless in both issuance and presentation, is a future proof approach\r\n",
+          "createdAt": "2023-09-25T12:29:50Z",
+          "updatedAt": "2023-09-25T12:29:50Z"
+        },
+        {
+          "author": "fbaud",
+          "authorAssociation": "NONE",
+          "body": "@peppelinux I think that the discovery process between the wallet and the server can be done without authentication.\r\nIt is more part of a protocol negotiation than part of a transaction. Transaction may need authentication, but for the verifier the point was more: \"give me all you can give and I'll sort it out\". While for the issuing, after possibly negotiating what alg, trust_chain, credential format,.. will be used, the server may need to authenticate the wallet (or check that it has the right authorisations) before delivering the credential. But nevertheless, we should also imagine that a wallet can request a credential without having to authenticate (like for a server delivering a timestamped credential for a process requiring a dead-man switch).",
+          "createdAt": "2023-09-25T13:35:57Z",
+          "updatedAt": "2023-09-25T13:36:54Z"
+        },
+        {
+          "author": "peppelinux",
+          "authorAssociation": "MEMBER",
+          "body": "@fbaud How an RP discovers the wallet capabilities is something that should happen before the issuance of the signed request object. At the same time the RP must be sure that the WIA is in the legitimate possession of the Holder, with the authentication through the WIA+PoP\r\n\r\nthis approach would fit with the nonce_endpoint discussed here: https://github.com/openid/OpenID4VCI/issues/71#issuecomment-1733791449 where in addition we protect the issuance of the nonce with a wallet instance authz\r\n\r\n>  But nevertheless, we should also imagine that a wallet can request a credential without having to authenticate (like for a server delivering a timestamped credential for a process requiring a dead-man switch).\r\n\r\nyes, the autentication would be quite modular and for Type 1 and some Type 2 credentials, according to the required LoA\r\n",
+          "createdAt": "2023-09-25T14:21:46Z",
+          "updatedAt": "2023-09-25T14:22:57Z"
+        },
+        {
+          "author": "David-Chadwick",
+          "authorAssociation": "NONE",
+          "body": "The verifier must trust the issuer, otherwise it cannot accept the issued credentials that are held by the user/wallet, regardless of the capabilities of the wallet. However, we know that the wallet must have the capability to accept the credential from the issuer.\r\nConsequently the verifier should obtain the meta data of the issuer, and this will provide the verifier with (possibly a superset of) the capabilities of the wallet. Thus I think it is a false requirement for the verifier to determine the capabilities of the wallet. Rather it should determine the capabilities of the issuer. If the verifier is capable of accepting all of these capabilities, then it knows that it can accept the credential from the wallet, regardless of what capability the wallet has. Now, I accept that a wallet may only support a subset of the capabilities of the issuer, but providing the verifier can support all the capabilities of the issuer this is not be a problem. The problem arises if we have both a verifier and a wallet that only support a subset of the capabilities of the issuer, and these are disjoint sets. But in this case there is little point in the verifier determining the capabilities of the wallet, as it cannot interwork with it. Thus the verifier should request the credential from the wallet using (a subset of) the capabilities of the issuer, and see if the wallet can provide it in this format. I don't believe the verifier needs to pre-determine the capabilities of the wallet.",
+          "createdAt": "2023-09-25T21:13:25Z",
+          "updatedAt": "2023-09-25T21:13:25Z"
+        }
+      ]
+    },
+    {
+      "number": 47,
+      "id": "I_kwDOJaEkaM5x3vhj",
+      "title": "PoP attestation binding ",
+      "url": "https://github.com/vcstuff/draft-ietf-oauth-attestation-based-client-auth/issues/47",
+      "state": "OPEN",
+      "author": "peppelinux",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "Even if remote, there is the possibility that an implementation re-uses the same cryptographic keys for different scopes.\r\n\r\nthe PoP JWT could be used with the same cryptograhic key attested in more than a single attestation and therefore be replicated for different endpoints/audience\r\n\r\nWhat do you think about getting the `ath` claim inside the DPoP token as requested?\r\n\r\nIn this way, a DPoP token cannot be replicated when the key that proves possession is the same within different attestations.\r\n\r\nEven if DPoP specs defines `ath` in relation to an access token, may we consider that any kind of JWT could represent an access token, in relation of its scope, the flow where it is used and its usage in general?\r\n\r\nThen, could we provide a binding of the PoP to a specific attestation where the possession aims to be proved?",
+      "createdAt": "2023-09-25T00:16:42Z",
+      "updatedAt": "2023-09-25T13:00:09Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "peppelinux",
+          "authorAssociation": "MEMBER",
+          "body": "For better clarity\r\n\r\nan aud is not enough where a pop is used on a different attestation that has in common the same key used for the signature of another attestation\r\n\r\nit's an implementation risk where an implementer would use the same key for different attestations\r\n\r\nonce you have one, you can replay the same PoP for another/different attestation that has in common the same key\r\nhash of the attestation is then required, WDYT?",
+          "createdAt": "2023-09-25T11:07:05Z",
+          "updatedAt": "2023-09-25T11:07:05Z"
+        },
+        {
+          "author": "asharif1990",
+          "authorAssociation": "NONE",
+          "body": "> Even if remote, there is the possibility that an implementation re-uses the same cryptographic keys for different scopes.\r\n> \r\n> the PoP JWT could be used with the same cryptograhic key attested in more than a single attestation and therefore be replicated for different endpoints/audience\r\n> \r\n> What do you think about getting the `ath` claim inside the DPoP token as requested?\r\n> \r\n> In this way, a DPoP token cannot be replicated when the key that proves possession is the same within different attestations.\r\n> \r\n> Even if DPoP specs defines `ath` in relation to an access token, may we consider that any kind of JWT could represent an access token, in relation of its scope, the flow where it is used and its usage in general?\r\n> \r\n> Then, could we provide a binding of the PoP to a specific attestation where the possession aims to be proved?\r\n\r\nI can see the benefits of binding the wallet instance attestations to the specific proof to avoid the possibility that it could be swapped in the case that the same cryptography keys are used by the implementers. I agree that the usage of a similar countermeasure like `ath` that is defined in the DPoP specification can work here as a mitigation. However, it would be better to introduce a new claim for this to be included in PoP as `ath` meant for the Access Token, and here as we deal with Wallet Instance Attestation maybe we can use the following claim `wiah`?",
+          "createdAt": "2023-09-25T13:00:08Z",
+          "updatedAt": "2023-09-25T13:00:08Z"
         }
       ]
     }
