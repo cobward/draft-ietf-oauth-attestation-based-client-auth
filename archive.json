@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-09-26T00:43:24.975002+00:00",
+  "timestamp": "2023-09-28T00:42:50.544724+00:00",
   "repo": "vcstuff/draft-ietf-oauth-attestation-based-client-auth",
   "labels": [
     {
@@ -1285,7 +1285,7 @@
       "labels": [],
       "body": "In the current solution under development in Italy, the debate on the use of this wonderful draft has been alive for months.\r\n\r\nFrom the experiences and positions collected there seems to be a general refusal to recognize as \"beautiful\" the concatenation of JWTs divided by the ~ character within the `client_assertion` parameter.\r\n\r\nFor those who don't know, the crime of ugliness does not yet exist in Italy but there is great sensitivity in the search for beauty even in implementations.\r\n\r\nThere are alternative ways to proof the PoP, like DPoP. Unfortunately convey large JWT in a HTTP header like DPoP may have impacts on the tuning of the httpd services that would require a specialized configuration to allow http headers larger than 4KB. This has relevant impacts in the cases where a JWT carries x5c or Federation trust chains within its headers, where a JWT could be more than 4KB.\r\n\r\nEven if there are other specs that uses concatenation of JWTs using `~` as separator char, like SD-JWT. However SD-JWT tends to be self-contained artifact, general purpose and agnostic from the way it is transported. Then I'd tend to leave out SD-JWT from this thread.\r\n\r\nConsidering that this draft aims to extend RFC7521, I'd suggest to not use the concatenation two JWTs using `~` but the definition of a new parameter, that we may call `client_assertion_pop` to convey the client attestation PoP. This proposal suggests a good semantic with self-explanatory parameter names, in a modular way that aims to extend RFC7521 with explicit parameters as additional modules, that may be used where PoP is required.\r\n\r\n",
       "createdAt": "2023-09-24T23:25:42Z",
-      "updatedAt": "2023-09-25T18:28:32Z",
+      "updatedAt": "2023-09-27T07:29:44Z",
       "closedAt": null,
       "comments": [
         {
@@ -1294,13 +1294,6 @@
           "body": "[Giuseppe asked for my thoughts]  \r\nRFC7521 largely only envisioned a single assertion so building on it for the intended functionality of this draft isn't a perfect fit. The current approach of the `client_assertion` parameter value having the two tilde separated JWTs is fine, though, in my opinion. And I don't believe that defining  new parameter for the Client Attestation PoP JWT would be a material improvement.    \r\n\r\n",
           "createdAt": "2023-09-25T15:10:41Z",
           "updatedAt": "2023-09-25T18:28:32Z"
-        },
-        {
-          "author": "peppelinux",
-          "authorAssociation": "MEMBER",
-          "body": "typo `client_attestation` -> `client_assertion`, fixed in the issue description \r\n\r\n",
-          "createdAt": "2023-09-25T17:08:13Z",
-          "updatedAt": "2023-09-25T17:08:27Z"
         },
         {
           "author": "peppelinux",
@@ -1330,7 +1323,7 @@
       "labels": [],
       "body": "According to RFC7521 this draft aims to give specification about how to get authenticated with an AS, as we read in the introductory text\r\n\r\n> [[RFC7521](https://vcstuff.github.io/draft-ietf-oauth-attestation-based-client-auth/draft-ietf-oauth-attestation-based-client-auth.html#RFC7521)] defines a way for a client to include an assertion in a token request to an authorization server for the purposes of client authentication. This specification uses this framework to define a new assertion type that provides a way for a client instance to authenticate itself with the authorization server through an assertion that is bound to a public key (for proof of possession).\r\n\r\nIf the usefulness and purpose of this draft is clear, at the same time we perceive a great potential that could also be useful in other contexts.\r\n\r\nLately there has been a lot of talk about the use of the nonce as a definitive prevention against replay attacks, and the importance of the nonce endpoint for issuing these is often discussed.\r\n\r\nIn the background we have the emerging wallet ecosystem which proposes reversed roles at different times, where the wallet is a client in the issuance phase towards a credential issuer which is an AS, while it is a sort of AS in the presentation phase towards the Relying Party.\r\n\r\nThis draft could enable the authentication of a client (wallet) to a third party (either this AS or RP) before obtaining the nonce.\r\n\r\nthe possible nonce endpoint could present itself as a protected endpoint, the nonce should only be issued to authenticated parties.\r\n\r\nThis generalization would require greater flexibility compared to the current purposes of the draft, which envisages its use only when the audience is an AS, while it could also be an RP, where the wallet instance attestation with PoP can be provided before any kind of transaction takes place (allowing the RP to discover the wallet capabilities before issuing the signed request object).",
       "createdAt": "2023-09-24T23:50:46Z",
-      "updatedAt": "2023-09-25T21:13:26Z",
+      "updatedAt": "2023-09-26T08:56:47Z",
       "closedAt": null,
       "comments": [
         {
@@ -1381,6 +1374,27 @@
           "body": "The verifier must trust the issuer, otherwise it cannot accept the issued credentials that are held by the user/wallet, regardless of the capabilities of the wallet. However, we know that the wallet must have the capability to accept the credential from the issuer.\r\nConsequently the verifier should obtain the meta data of the issuer, and this will provide the verifier with (possibly a superset of) the capabilities of the wallet. Thus I think it is a false requirement for the verifier to determine the capabilities of the wallet. Rather it should determine the capabilities of the issuer. If the verifier is capable of accepting all of these capabilities, then it knows that it can accept the credential from the wallet, regardless of what capability the wallet has. Now, I accept that a wallet may only support a subset of the capabilities of the issuer, but providing the verifier can support all the capabilities of the issuer this is not be a problem. The problem arises if we have both a verifier and a wallet that only support a subset of the capabilities of the issuer, and these are disjoint sets. But in this case there is little point in the verifier determining the capabilities of the wallet, as it cannot interwork with it. Thus the verifier should request the credential from the wallet using (a subset of) the capabilities of the issuer, and see if the wallet can provide it in this format. I don't believe the verifier needs to pre-determine the capabilities of the wallet.",
           "createdAt": "2023-09-25T21:13:25Z",
           "updatedAt": "2023-09-25T21:13:25Z"
+        },
+        {
+          "author": "peppelinux",
+          "authorAssociation": "MEMBER",
+          "body": "What if ... \r\n\r\n1. The wallet instance encrypts the presentation response with an enc alg that's not supported by the verifier?\r\n2. The wallet instance doesn't support presentation_definition_uri? (see `presentation_definition_uri_supported`)\r\n3. The wallet instance doesn't support a specific vp format? (see `vp_formats_supported`)\r\n4. The wallet instance has to provide the `authorization_endpoint` to the verifier? (... Can be custom URI scheme, or Universal Links/App links ...)\r\n\r\nthen, having these previous, why the wallet capabilities discovery would be a false requirement?",
+          "createdAt": "2023-09-26T07:04:37Z",
+          "updatedAt": "2023-09-26T07:04:37Z"
+        },
+        {
+          "author": "David-Chadwick",
+          "authorAssociation": "NONE",
+          "body": "@peppelinux In answer to the above\r\n1. This is a (lack of) capability of the verifier. If it is constrained in this way it should inform the wallet in the request for the VP or via its metadata\r\n2. The wallet will return an error to the RP\r\n3. It is most likely that the wallet will support the same formats for VCs as for VPs. I think it highly unlikely that a wallet will support say a JWT VC and not a JWT VP. Thus the verifier can infer what vp format(s) will be supported by seeing what VC format(s) the issuer provides to the wallet.\r\n4. In our interworking tests the RP had to have a web page with the correct wallet endpoints so that the user could click on the correct one. In the case of a cloud wallet, the user had to enter this URL to the RP (since the RP cannot know the endpoints of all (or any) cloud wallets. If the RP knows nothing about the user's wallet how do you expect the two to communicate? In our opinion, the connection had to be initiated by the user, and the user knows the endpoint of its own wallet",
+          "createdAt": "2023-09-26T07:54:26Z",
+          "updatedAt": "2023-09-26T07:54:26Z"
+        },
+        {
+          "author": "peppelinux",
+          "authorAssociation": "MEMBER",
+          "body": "I got your point @David-Chadwick and I'd make your also mine, however I'm aware that having a proper discovery we would remove any fault, errors and failed transaction that may happen in the real world, in particular with an open ecosystem where different tecnologies and implementations profiles will end to be mixed. I see a future where an EIDAS Wallet solution may implements external features and then also did resolvers and additional capabilities. This would build an open ecosystem where interop and capabilities discovery represent a concrete and future proof requirement\r\n\r\nNot at least, preventing faults saves both users time and electricity :-)",
+          "createdAt": "2023-09-26T08:56:46Z",
+          "updatedAt": "2023-09-26T08:56:46Z"
         }
       ]
     },
