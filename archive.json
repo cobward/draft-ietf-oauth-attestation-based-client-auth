@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-09-28T00:42:50.544724+00:00",
+  "timestamp": "2023-10-10T00:42:43.921989+00:00",
   "repo": "vcstuff/draft-ietf-oauth-attestation-based-client-auth",
   "labels": [
     {
@@ -471,7 +471,7 @@
       "labels": [],
       "body": "Currently the specification does not define a mechanism for an AS contributed nonce to feature in the client attestation PoP meaning replay attack detection by authorisation servers requires tracking the JTI within the time window set by the PoP's iat claim. We should elaborate on an AS contributed nonce for the specification.",
       "createdAt": "2023-05-18T10:00:50Z",
-      "updatedAt": "2023-09-06T06:56:35Z",
+      "updatedAt": "2023-10-08T15:18:03Z",
       "closedAt": null,
       "comments": [
         {
@@ -529,6 +529,20 @@
           "body": "Update provided in #39",
           "createdAt": "2023-09-06T06:56:35Z",
           "updatedAt": "2023-09-06T06:56:35Z"
+        },
+        {
+          "author": "paulbastian",
+          "authorAssociation": "COLLABORATOR",
+          "body": "PR #49 ",
+          "createdAt": "2023-10-08T15:17:05Z",
+          "updatedAt": "2023-10-08T15:17:05Z"
+        },
+        {
+          "author": "paulbastian",
+          "authorAssociation": "COLLABORATOR",
+          "body": "PR #49 ",
+          "createdAt": "2023-10-08T15:18:03Z",
+          "updatedAt": "2023-10-08T15:18:03Z"
         }
       ]
     },
@@ -598,7 +612,7 @@
       "labels": [],
       "body": "In the example in section 3.1.1. the issuer and the sub parameters should not be the same since the Wallet provider and the wallet instance are distinct entities. The private key in sole control of the wallet instance is referenced in the attestation while the subject refers to the Wallet Provider. \r\n\r\nMoreover, is the given example meant to be normative? I'm asking since in the example we find the JWS header parameter kid without any explanatory text about the key resolution mechanism allowed in the specs. (x5c, trust_chain, jwk)\r\n\r\n",
       "createdAt": "2023-05-30T13:22:00Z",
-      "updatedAt": "2023-09-07T01:24:17Z",
+      "updatedAt": "2023-10-09T09:14:20Z",
       "closedAt": null,
       "comments": [
         {
@@ -635,6 +649,20 @@
           "body": "Following the generalisation proposed in #32 if merged then we will need to constrain the sub value to being the client_id to ensure client identification and authentication can take place. Multiple client instances sharing a single client_id is not a new pattern and is common place for public clients.",
           "createdAt": "2023-09-06T06:51:43Z",
           "updatedAt": "2023-09-06T06:51:43Z"
+        },
+        {
+          "author": "paulbastian",
+          "authorAssociation": "COLLABORATOR",
+          "body": "As of now, I think there is consensus to have `sub` as client_id.\r\nPending close if no objections",
+          "createdAt": "2023-10-08T15:19:18Z",
+          "updatedAt": "2023-10-08T15:19:18Z"
+        },
+        {
+          "author": "peppelinux",
+          "authorAssociation": "MEMBER",
+          "body": "I agreed that `sub` must have the same value of `client_id` but I didn't agreed that the specs should say which must be their value.\r\nI agree @TakahikoKawasaki 's comment [here](https://github.com/vcstuff/draft-ietf-oauth-attestation-based-client-auth/issues/32#issuecomment-1637028939) and I think that different implementations and models may distinguish the wallet instance from the wallet provider as different entities",
+          "createdAt": "2023-10-09T09:14:20Z",
+          "updatedAt": "2023-10-09T09:14:20Z"
         }
       ]
     },
@@ -683,7 +711,7 @@
       "labels": [],
       "body": "Since the EUDI Wallet instance may have different level of security depending on its own hardware and/or software capabilities, here the proposal: define a claim name for exposing different level of security of the wallet instance.\r\n\r\nExample:\"gold\", \"silver\" and \"bronze\" or \"high\", \"medium\", \"low\" depending on the framework used. \r\n\r\nThis proposal enables the security evaluation to the credential issuing side (or any other Relying Party) without knowing any specific hardware or software features (e.g. OS, etc.). ",
       "createdAt": "2023-05-30T13:52:15Z",
-      "updatedAt": "2023-09-06T06:47:46Z",
+      "updatedAt": "2023-10-08T15:21:45Z",
       "closedAt": null,
       "comments": [
         {
@@ -727,6 +755,13 @@
           "body": "Related to #29 ",
           "createdAt": "2023-09-06T06:47:46Z",
           "updatedAt": "2023-09-06T06:47:46Z"
+        },
+        {
+          "author": "paulbastian",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Solved in #48 ",
+          "createdAt": "2023-10-08T15:21:44Z",
+          "updatedAt": "2023-10-08T15:21:44Z"
         }
       ]
     },
@@ -744,7 +779,7 @@
       "labels": [],
       "body": "Issue raised by Kristina:\r\nI also perceive this draft as a PoP version of urn:ietf:params:oauth:grant-type:jwt-bearer, would it make sense to make that more intuitive and explicit - like urn:ietf:params:oauth:grant-type:jwt-pop? - this can be another issue\r\n\r\n_Originally posted by @Sakurann in https://github.com/vcstuff/draft-looker-oauth-attested-key-based-client-authentication/pull/11#pullrequestreview-1451679914_\r\n            ",
       "createdAt": "2023-06-05T08:59:41Z",
-      "updatedAt": "2023-09-25T18:40:05Z",
+      "updatedAt": "2023-10-08T15:22:24Z",
       "closedAt": null,
       "comments": [
         {
@@ -760,6 +795,13 @@
           "body": "Note that this draft is defining an OAuth client authentication method and *not* a grant type (yes RFC7521 has both but this draft only deals with client auth). So there may well be room for improvement in terminology but it shouldn't be about grant type.",
           "createdAt": "2023-09-25T18:40:04Z",
           "updatedAt": "2023-09-25T18:40:04Z"
+        },
+        {
+          "author": "paulbastian",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Pending close if there are no objections",
+          "createdAt": "2023-10-08T15:22:24Z",
+          "updatedAt": "2023-10-08T15:22:24Z"
         }
       ]
     },
@@ -1278,15 +1320,15 @@
       "id": "I_kwDOJaEkaM5x3qkF",
       "title": "[client_assertion_pop] JWTs concatenated and separated by ~ vs self-explanatory parameter names",
       "url": "https://github.com/vcstuff/draft-ietf-oauth-attestation-based-client-auth/issues/45",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "peppelinux",
       "authorAssociation": "MEMBER",
       "assignees": [],
       "labels": [],
       "body": "In the current solution under development in Italy, the debate on the use of this wonderful draft has been alive for months.\r\n\r\nFrom the experiences and positions collected there seems to be a general refusal to recognize as \"beautiful\" the concatenation of JWTs divided by the ~ character within the `client_assertion` parameter.\r\n\r\nFor those who don't know, the crime of ugliness does not yet exist in Italy but there is great sensitivity in the search for beauty even in implementations.\r\n\r\nThere are alternative ways to proof the PoP, like DPoP. Unfortunately convey large JWT in a HTTP header like DPoP may have impacts on the tuning of the httpd services that would require a specialized configuration to allow http headers larger than 4KB. This has relevant impacts in the cases where a JWT carries x5c or Federation trust chains within its headers, where a JWT could be more than 4KB.\r\n\r\nEven if there are other specs that uses concatenation of JWTs using `~` as separator char, like SD-JWT. However SD-JWT tends to be self-contained artifact, general purpose and agnostic from the way it is transported. Then I'd tend to leave out SD-JWT from this thread.\r\n\r\nConsidering that this draft aims to extend RFC7521, I'd suggest to not use the concatenation two JWTs using `~` but the definition of a new parameter, that we may call `client_assertion_pop` to convey the client attestation PoP. This proposal suggests a good semantic with self-explanatory parameter names, in a modular way that aims to extend RFC7521 with explicit parameters as additional modules, that may be used where PoP is required.\r\n\r\n",
       "createdAt": "2023-09-24T23:25:42Z",
-      "updatedAt": "2023-09-27T07:29:44Z",
-      "closedAt": null,
+      "updatedAt": "2023-10-09T12:34:18Z",
+      "closedAt": "2023-10-09T12:34:17Z",
       "comments": [
         {
           "author": "bc-pi",
@@ -1308,6 +1350,13 @@
           "body": "Yeah, the value of the `client_assertion_type` is intended to indicate the format (and other aspects) of the `client_assertion` value.",
           "createdAt": "2023-09-25T17:39:32Z",
           "updatedAt": "2023-09-25T17:39:32Z"
+        },
+        {
+          "author": "peppelinux",
+          "authorAssociation": "MEMBER",
+          "body": "Since an agreement was found about the adoption of the current specs as they are and without requesting any breaking change, this thread doesn't represent an issue anymore.\r\n[\r\nHere the related PR](https://github.com/italia/eudi-wallet-it-docs/pull/138) that uses this specs as it is in the it wallet",
+          "createdAt": "2023-10-09T12:34:17Z",
+          "updatedAt": "2023-10-09T12:34:17Z"
         }
       ]
     },
@@ -2579,7 +2628,7 @@
       "labels": [],
       "body": "Re-simplifies the introduction ",
       "createdAt": "2023-06-13T19:52:21Z",
-      "updatedAt": "2023-06-27T20:45:25Z",
+      "updatedAt": "2023-10-08T18:43:28Z",
       "baseRepository": "vcstuff/draft-ietf-oauth-attestation-based-client-auth",
       "baseRefName": "main",
       "baseRefOid": "0d942cf0688ed99afccfb16c850bb5ff7b62bfc3",
@@ -2617,6 +2666,26 @@
           "createdAt": "2023-06-27T20:45:25Z",
           "updatedAt": "2023-06-27T20:45:25Z",
           "comments": []
+        },
+        {
+          "id": "PRR_kwDOJaEkaM5jJzxf",
+          "commit": {
+            "abbreviatedOid": "2ff3c8c"
+          },
+          "author": "peppelinux",
+          "authorAssociation": "MEMBER",
+          "state": "CHANGES_REQUESTED",
+          "body": "informally approved, formally requested two small editorial things",
+          "createdAt": "2023-10-08T18:42:39Z",
+          "updatedAt": "2023-10-08T18:43:28Z",
+          "comments": [
+            {
+              "originalPosition": 17,
+              "body": "```suggestion\r\n1. A Client Attestation JWT produced by the client backend.\r\n2. A Client Attestation Proof of Possession (PoP) produced by the client instance.\r\n```",
+              "createdAt": "2023-10-08T18:42:39Z",
+              "updatedAt": "2023-10-08T18:43:28Z"
+            }
+          ]
         }
       ]
     },
@@ -3371,6 +3440,274 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 48,
+      "id": "PR_kwDOJaEkaM5cMdH5",
+      "title": "add text on aal",
+      "url": "https://github.com/vcstuff/draft-ietf-oauth-attestation-based-client-auth/pull/48",
+      "state": "CLOSED",
+      "author": "paulbastian",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "<!-- If this pull request closes an issue, please mention the issue number below -->\r\nCloses # <!-- Issue # here -->\r\n\r\n## \ud83d\udcd1 Description\r\nOn text on optional aal parameter\r\n\r\n<!-- You can also choose to add a list of changes and if they have been completed or not by using the markdown to-do list syntax\r\n- [ ] Not Completed\r\n- [x] Completed\r\n-->\r\n\r\n## Preview Link\r\n\r\n<!-- Update the link below to provide reviewers with a convenient link to view a rendered version of the PR-->\r\n<!-- In general the link should be of the form https://github.com/<repo-name>/<branch-name>/<draft-name>.html-->\r\n\r\n[click here for rendered preview of PR](https://github.com/<repo-name>/<branch-name>/<draft-name>.html)",
+      "createdAt": "2023-10-08T15:01:59Z",
+      "updatedAt": "2023-10-09T14:22:41Z",
+      "baseRepository": "vcstuff/draft-ietf-oauth-attestation-based-client-auth",
+      "baseRefName": "main",
+      "baseRefOid": "2afbd665e8cbd9e9c2c82fabf918da05ed573037",
+      "headRepository": "paulbastian/draft-looker-oauth-attested-key-based-client-authentication",
+      "headRefName": "aal",
+      "headRefOid": "b843a2a60fa49577b58d083b483823a6e4fc3dd3",
+      "closedAt": "2023-10-09T14:22:41Z",
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "paulbastian",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Sorry @peppelinux . This PR got somehow messed up in git merge. I will raise a new one, as this was only intended for aal",
+          "createdAt": "2023-10-09T14:22:41Z",
+          "updatedAt": "2023-10-09T14:22:41Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJaEkaM5jJzi9",
+          "commit": {
+            "abbreviatedOid": "b843a2a"
+          },
+          "author": "peppelinux",
+          "authorAssociation": "MEMBER",
+          "state": "CHANGES_REQUESTED",
+          "body": "@paulbastian it seems that this PR doesn't contain nothing about AAL, is this a mistake?\r\n\r\n--- updates ---\r\n\r\nfound it at line 195, my bad",
+          "createdAt": "2023-10-08T18:34:06Z",
+          "updatedAt": "2023-10-09T09:22:51Z",
+          "comments": [
+            {
+              "originalPosition": 8,
+              "body": "git merge conflict here, I'm in favor of the first sentence :-)\r\nthen we should put a ref to RFC7519, related to the section where the jti claim is defined",
+              "createdAt": "2023-10-08T18:34:07Z",
+              "updatedAt": "2023-10-08T18:41:51Z"
+            },
+            {
+              "originalPosition": 17,
+              "body": "```suggestion\r\n3. The JWT MUST contain an \"aud\" (audience) claim containing a value that identifies the authorization server as an intended audience. The {{RFC8414}} issuer identifier URL of the authorization server MUST be used as a value for an \"aud\" element to identify the authorization server as the intended audience of the JWT.\r\n```\r\n```suggestion\r\n3. The JWT MUST contain the \"aud\" (audience) claim containing a value that identifies the authorization server as an intended audience. The {{RFC8414}} issuer identifier URL of the authorization server MUST be used as a value for an \"aud\" element to identify the authorization server as the intended audience of the JWT.\r\n```\r\n\r\nI suggest to have in the aud the url of the endpoint where the JWT is intended to be used, then the authz endpoint, the token endpoint ... it could/should be an array as well. When we say `containing a value that identifies the authorization server` we should mention the issuer (entity id) as well and a ref to rfc8414 (issuer claim, that MUST be present within the AS metadata)",
+              "createdAt": "2023-10-08T18:35:23Z",
+              "updatedAt": "2023-10-08T18:41:51Z"
+            },
+            {
+              "originalPosition": 20,
+              "body": "```suggestion\r\n34 The JWT MAY contain the \"jti\" (JWT ID) claim that provides a unique identifier for the token.  The authorization server MAY ensure that JWTs are not replayed by maintaining the set of used \"jti\" values for the length of time for which the JWT would be considered valid based on the applicable \"exp\" instant.\r\n```",
+              "createdAt": "2023-10-08T18:37:06Z",
+              "updatedAt": "2023-10-08T18:41:51Z"
+            },
+            {
+              "originalPosition": 23,
+              "body": "```suggestion\r\n5. The JWT MAY contain the \"nonce\" claim containing the value provided by the authorization server to associate the Client Attestation PoP JWT with a particular transaction and prevent replay attacks.\r\n```",
+              "createdAt": "2023-10-08T18:38:24Z",
+              "updatedAt": "2023-10-08T18:41:51Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJaEkaM5jKXCP",
+          "commit": {
+            "abbreviatedOid": "b843a2a"
+          },
+          "author": "paulbastian",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-10-09T02:05:57Z",
+          "updatedAt": "2023-10-09T02:05:58Z",
+          "comments": [
+            {
+              "originalPosition": 17,
+              "body": "```suggestion\r\n7. The JWT MAY contain a \"jti\" (JWT ID) claim that provides a unique identifier for the token. The authorization server MAY ensure that JWTs are not replayed by maintaining the set of used \"jti\" values for the length of time for which the JWT would be considered valid based on the applicable \"exp\" instant.\r\n```",
+              "createdAt": "2023-10-09T02:05:57Z",
+              "updatedAt": "2023-10-09T02:05:58Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJaEkaM5jK8Zi",
+          "commit": {
+            "abbreviatedOid": "b843a2a"
+          },
+          "author": "peppelinux",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-10-09T06:54:33Z",
+          "updatedAt": "2023-10-09T06:54:33Z",
+          "comments": [
+            {
+              "originalPosition": 17,
+              "body": "`The authorization server MAY ensure that JWTs are not replayed by maintaining the set of used \"jti\" values for the length of time for which the JWT would be considered valid based on the applicable \"exp\" instant.`\r\n\r\nthis is possibile only if `jti` is REQUIRED, that's why I suggest to move that MAY to a MUST, otherwise the text above would not make any sense",
+              "createdAt": "2023-10-09T06:54:33Z",
+              "updatedAt": "2023-10-09T06:54:33Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 49,
+      "id": "PR_kwDOJaEkaM5cMdpW",
+      "title": "Replay prevention",
+      "url": "https://github.com/vcstuff/draft-ietf-oauth-attestation-based-client-auth/pull/49",
+      "state": "OPEN",
+      "author": "paulbastian",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "<!-- If this pull request closes an issue, please mention the issue number below -->\r\nCloses # <!-- Issue # here -->\r\n\r\n## \ud83d\udcd1 Description\r\n<!-- Add a brief description of the pr -->\r\n\r\n<!-- You can also choose to add a list of changes and if they have been completed or not by using the markdown to-do list syntax\r\n- [ ] Not Completed\r\n- [x] Completed\r\n-->\r\n\r\n## Preview Link\r\n\r\n<!-- Update the link below to provide reviewers with a convenient link to view a rendered version of the PR-->\r\n<!-- In general the link should be of the form https://github.com/<repo-name>/<branch-name>/<draft-name>.html-->\r\n\r\n[click here for rendered preview of PR](https://github.com/<repo-name>/<branch-name>/<draft-name>.html)",
+      "createdAt": "2023-10-08T15:09:52Z",
+      "updatedAt": "2023-10-08T18:47:37Z",
+      "baseRepository": "vcstuff/draft-ietf-oauth-attestation-based-client-auth",
+      "baseRefName": "main",
+      "baseRefOid": "2afbd665e8cbd9e9c2c82fabf918da05ed573037",
+      "headRepository": "paulbastian/draft-looker-oauth-attested-key-based-client-authentication",
+      "headRefName": "replay-prevention",
+      "headRefOid": "d5d5ffeb73f28d0a77b5955b78fa7008478823be",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJaEkaM5jJwGZ",
+          "commit": {
+            "abbreviatedOid": "d5d5ffe"
+          },
+          "author": "peppelinux",
+          "authorAssociation": "MEMBER",
+          "state": "CHANGES_REQUESTED",
+          "body": "",
+          "createdAt": "2023-10-08T18:18:03Z",
+          "updatedAt": "2023-10-08T18:32:10Z",
+          "comments": [
+            {
+              "originalPosition": 8,
+              "body": "MAY is to weak!\r\n\r\nI really prefer the previous text where the JTI MUST be present and the AS MAY evaluate it. It doesn't cost nothing to the implementers, that would be just an uuid4",
+              "createdAt": "2023-10-08T18:18:03Z",
+              "updatedAt": "2023-10-08T18:45:21Z"
+            },
+            {
+              "originalPosition": 17,
+              "body": "`iat`, `exp` and claims belongin to JWT should include a ref to the RFC that defined them, so that there also the format and any other relevant information could be given in relation to these",
+              "createdAt": "2023-10-08T18:26:40Z",
+              "updatedAt": "2023-10-08T18:32:10Z"
+            },
+            {
+              "originalPosition": 23,
+              "body": "did we say something about the epic alg `none` here? ;-)",
+              "createdAt": "2023-10-08T18:27:22Z",
+              "updatedAt": "2023-10-08T18:32:10Z"
+            },
+            {
+              "originalPosition": 38,
+              "body": "agreed, then we shoudl mandate the presence of `jti` in the WIA as it was before this PR",
+              "createdAt": "2023-10-08T18:28:37Z",
+              "updatedAt": "2023-10-08T18:32:10Z"
+            },
+            {
+              "originalPosition": 39,
+              "body": "may we say something on the minimum length of the nonce?",
+              "createdAt": "2023-10-08T18:29:38Z",
+              "updatedAt": "2023-10-08T18:32:10Z"
+            },
+            {
+              "originalPosition": 40,
+              "body": "here we don't say who's the issuer of the existing artefact and from where and when it was taken.\r\n\r\nI understand the meaning but for editorial sake we should say something more explicit here",
+              "createdAt": "2023-10-08T18:32:05Z",
+              "updatedAt": "2023-10-08T18:32:10Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJaEkaM5jJz07",
+          "commit": {
+            "abbreviatedOid": "d5d5ffe"
+          },
+          "author": "peppelinux",
+          "authorAssociation": "MEMBER",
+          "state": "CHANGES_REQUESTED",
+          "body": "",
+          "createdAt": "2023-10-08T18:44:41Z",
+          "updatedAt": "2023-10-08T18:47:37Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "```suggestion\r\n3. The JWT MUST contain the \"aud\" (audience) claim containing a value that identifies the authorization server as an intended audience. The {{RFC8414}} issuer identifier URL of the authorization server MUST be used as a value for an \"aud\" element to identify the authorization server as the intended audience of the JWT.\r\n```\r\n\r\nWDYT about using the instead of \"an\"? If agreed, please change all the occurence accordignly or ask to me to give a suggestion to have them easy to be merged",
+              "createdAt": "2023-10-08T18:44:41Z",
+              "updatedAt": "2023-10-08T18:47:37Z"
+            },
+            {
+              "originalPosition": 39,
+              "body": "as for all the other parameters, it would be better to give a ref to the RFC that have defined them, for the nonce it would be something like \r\n\r\nshall require the nonce parameter defined in Section 3.1.2.1 of [OIDC](https://openid.net/specs/openid-connect-core-1_0.html) in the authentication request.",
+              "createdAt": "2023-10-08T18:47:28Z",
+              "updatedAt": "2023-10-08T18:47:37Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 50,
+      "id": "PR_kwDOJaEkaM5cMd2Q",
+      "title": "Update referenced rfcs",
+      "url": "https://github.com/vcstuff/draft-ietf-oauth-attestation-based-client-auth/pull/50",
+      "state": "OPEN",
+      "author": "paulbastian",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "<!-- If this pull request closes an issue, please mention the issue number below -->\r\nCloses # <!-- Issue # here -->\r\n\r\n## \ud83d\udcd1 Description\r\n<!-- Add a brief description of the pr -->\r\n\r\n<!-- You can also choose to add a list of changes and if they have been completed or not by using the markdown to-do list syntax\r\n- [ ] Not Completed\r\n- [x] Completed\r\n-->\r\n\r\n## Preview Link\r\n\r\n<!-- Update the link below to provide reviewers with a convenient link to view a rendered version of the PR-->\r\n<!-- In general the link should be of the form https://github.com/<repo-name>/<branch-name>/<draft-name>.html-->\r\n\r\n[click here for rendered preview of PR](https://github.com/<repo-name>/<branch-name>/<draft-name>.html)",
+      "createdAt": "2023-10-08T15:12:59Z",
+      "updatedAt": "2023-10-08T15:13:00Z",
+      "baseRepository": "vcstuff/draft-ietf-oauth-attestation-based-client-auth",
+      "baseRefName": "main",
+      "baseRefOid": "2afbd665e8cbd9e9c2c82fabf918da05ed573037",
+      "headRepository": "paulbastian/draft-looker-oauth-attested-key-based-client-authentication",
+      "headRefName": "update-referenced-rfcs",
+      "headRefOid": "290dbb93a54965e589a81a4d8506bb1d0cccbc84",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 51,
+      "id": "PR_kwDOJaEkaM5cRKk4",
+      "title": "add text on aal",
+      "url": "https://github.com/vcstuff/draft-ietf-oauth-attestation-based-client-auth/pull/51",
+      "state": "OPEN",
+      "author": "paulbastian",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "<!-- If this pull request closes an issue, please mention the issue number below -->\r\nCloses #15 \r\n\r\n## \ud83d\udcd1 Description\r\nAdd text on aal claim\r\n\r\n<!-- You can also choose to add a list of changes and if they have been completed or not by using the markdown to-do list syntax\r\n- [ ] Not Completed\r\n- [x] Completed\r\n-->\r\n\r\n## Preview Link\r\n\r\n<!-- Update the link below to provide reviewers with a convenient link to view a rendered version of the PR-->\r\n<!-- In general the link should be of the form https://github.com/<repo-name>/<branch-name>/<draft-name>.html-->\r\n\r\n[click here for rendered preview of PR](https://github.com/<repo-name>/<branch-name>/<draft-name>.html)",
+      "createdAt": "2023-10-09T14:31:36Z",
+      "updatedAt": "2023-10-09T14:31:37Z",
+      "baseRepository": "vcstuff/draft-ietf-oauth-attestation-based-client-auth",
+      "baseRefName": "main",
+      "baseRefOid": "2afbd665e8cbd9e9c2c82fabf918da05ed573037",
+      "headRepository": "vcstuff/draft-ietf-oauth-attestation-based-client-auth",
+      "headRefName": "aal",
+      "headRefOid": "5972c6174e290f3594164648929d0e3453aefae6",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
